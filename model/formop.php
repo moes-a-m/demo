@@ -15,7 +15,10 @@ class formop
 
     public function saveData($data)
     {
-
+        include "DBop.php";
+        $bot = new DBop();
+        $sql = "INSERT INTO `customers`( `name`, `productcode`, `quantity`, `price`) VALUES (':name',':productcode',':price',':quantity')";
+        $bot->query($sql, $data);
     }
 
     public function checkData($data)
