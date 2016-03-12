@@ -9,32 +9,51 @@
 class DBop
 {
     // database username
-    public $user = "class";
+    public $user;
 // database password
-    public $pass = 'password';
+    public $pass;
 // data source = mysql driver, localhost, database = class
-    public $dsn = 'mysql:host=localhost;dbname=class';
+    public $dsn;
+    private $pdo;
 
-    public $pdo;
-
-    public function __construct()
+    public function __construct($user = "root", $pass = '', $dsn = 'mysql:host=localhost;dbname=demo')
     {
         try {
-            $pdo = new PDO($this->dsn, $this->user, $this->pass);
+            $pdo = new PDO($dsn, $user, $pass, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
         } catch (PDOException $e) {
-//            echo $e->getMessage();
-//            echo $e->getTraceAsString();
+            echo $e->getMessage();
+            echo $e->getTraceAsString();
         }
     }
 
+    /**
+     * @param $statment
+     * @param $data
+     * @return mixed
+     */
     public function query($statment, $data)
     {
-        $pdo = $this->pdo;
+        try {
+            $dbload = $this->getPdo();
+            if (!isset($dbload)) {
+                $dbload = new PDO('mysql:host=localhost;dbname=demo', "root", '');
+            }
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            echo $e->getTraceAsString();
+        }
         $sqlParent = $statment;
-        $stmtParent = $pdo->prepare($sqlParent);
+        $stmtParent = $dbload->prepare($sqlParent);
         $resultParent = $stmtParent->execute($data);
-        printf("the result is");
-        printf($resultParent);
+        printf("\n%d", $resultParent);
         return $resultParent;
+    }
+
+    /**
+     * @return mixed
+     */
+    private function getPdo()
+    {
+        return $this->pdo;
     }
 }

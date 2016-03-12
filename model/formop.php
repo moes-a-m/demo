@@ -17,7 +17,8 @@ class formop
     {
         include "DBop.php";
         $bot = new DBop();
-        $sql = "INSERT INTO `customers`( `name`, `productcode`, `quantity`, `price`) VALUES (':name',':productcode',':price',':quantity')";
+        $sql = "INSERT INTO `customers`( `name`, `productcode`, `quantity`, `price`)"
+            . "VALUES (:name,:productcode,:price,:quantity)";
         $bot->query($sql, $data);
     }
 
@@ -25,23 +26,20 @@ class formop
     {
 
     }
-
     public function printData($data) {
         printf("The name is %s  the price is %s", $data['name'], $data['price']);
     }
 }
 
-$data[] = array();
 
-$data['name'] = $_POST["name"];
-$data['productcode'] = $_POST["productcode"];
-$data['price'] = $_POST["price"];
-$data['quantity'] = $_POST["quantity"];
-
+$data = array('name' => $_POST["name"],
+    'productcode' => $_POST["productcode"],
+    'quantity' => $_POST["quantity"],
+    'price' => $_POST["price"]);
 
 $handler = new formop;
 
-$handler->printData($data);
+$handler->saveData($data);
 
 
 
