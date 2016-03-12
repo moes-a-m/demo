@@ -354,7 +354,13 @@
       <option name="project" value="LOCAL" />
       <updated>1457743347849</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="full db example &#10;best practice not used yet">
+      <created>1457743388514</created>
+      <option name="number" value="00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1457743388514</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
