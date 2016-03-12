@@ -1,6 +1,8 @@
 <?php
 
 include "../core/func.php";
+include "DBop.php";
+
 /**
  * Created by PhpStorm.
  * User: Mohammed
@@ -11,20 +13,42 @@ class User
 {
     public $userName = "";
     public $passWord = "";
+    private $bot;
 
-    public function checkData($data)
+    public function __construct()
     {
-        include "DBop.php";
         $bot = new DBop();
-        $sql = "SELECT * FROM `users` WHERE `username` = :username AND `password` = :password";
-        if ($bot->query($sql, $data) == 1) {
-            redirect("../view/blank.php");
+    }
+
+    /**
+     * @return DBop
+     */
+    public function getBot()
+    {
+        if (!$this->bot) {
+            $this->bot = new DBop();
         }
+        return $this->bot;
+
     }
 
     public function printData($data)
     {
         printf("<br>The email is %s  the password is %s", $data['username'], $data['password']);
+    }
+
+    /**
+     * @param $userData
+     */
+    public function checkLogin($userData)
+    {
+        $bot = $this->getBot();
+        $state = $bot->checkLogin($userData);
+        if ($state == 1)
+            redirect("../view/blank.php");
+        else
+            redirect("../view/login.php?error");
+
     }
 }
 
@@ -33,7 +57,9 @@ $handler = new User();
 
 $data = array('username' => $_POST["email"],
     'password' => $_POST["password"]);
-$handler->printData($data);
 
-$handler->checkData($data);
+//foreach($data as $key=>$d){
+//    printf("<br>".$d);
+//}
 
+$handler->checkLogin($data);

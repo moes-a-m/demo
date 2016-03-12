@@ -1,5 +1,6 @@
 <?php
 
+require "init.php";
 /**
  * Created by PhpStorm.
  * User: Mohammed
@@ -8,24 +9,7 @@
  */
 class DBop
 {
-    // database username
-    public $user;
-// database password
-    public $pass;
-// data source = mysql driver, localhost, database = class
-    public $dsn;
-    private $pdo;
-
-    public function __construct($user = "root", $pass = '', $dsn = 'mysql:host=localhost;dbname=demo')
-    {
-        try {
-            $pdo = new PDO($dsn, $user, $pass, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-            echo $e->getTraceAsString();
-        }
-    }
-
+    protected $pdo = NULL;
     /**
      * @param $statment
      * @param $data
@@ -33,27 +17,59 @@ class DBop
      */
     public function query($statment, $data)
     {
-        try {
-            $dbload = $this->getPdo();
-            if (!isset($dbload)) {
-                $dbload = new PDO('mysql:host=localhost;dbname=demo', "root", '');
-            }
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-            echo $e->getTraceAsString();
-        }
+        $pdo = $this->getPdo();
         $sqlParent = $statment;
-        $stmtParent = $dbload->prepare($sqlParent);
+        $stmtParent = $pdo->prepare($sqlParent);
         $resultParent = $stmtParent->execute($data);
         printf("\n%d", $resultParent);
         return $resultParent;
     }
 
     /**
+     * @param $userData
      * @return mixed
      */
-    private function getPdo()
+    public function checkLogin($userData)
     {
+        $pdo = $this->getPdo();
+        $sqlParent = "SELECt * from users where username = :username and password = :password";
+        $stmtParent = $pdo->prepare($sqlParent);
+        $stmtParent->execute($userData);
+        if($stmtParent->rowCount() > 0)
+        {
+//            if(password_verify($upass, $userRow['user_pass']))
+//            {
+//                $_SESSION['user_session'] = $userRow['user_id'];
+//                return true;
+//            }
+//            else
+//            {
+//                return false;
+//            }
+            return true;
+        }
+        else
+            return false;
+    }
+
+    /**
+     * @return null|PDO
+     */
+    public function getPdo()
+    {
+        if (!$this->pdo) {
+            // *** display of warnings should be suppressed in production
+            try {
+                $this->pdo = new PDO(DB_DSN, DB_USER, DB_PWD, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+                return $this->pdo;
+            } catch (PDOException $e) {
+                error_log($e->getMessage(), 0);
+                $_SESSION['error'] = 'Database error';
+                echo $e->getMessage();
+                exit;
+            }
+        }
         return $this->pdo;
     }
+
 }
