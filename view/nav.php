@@ -6,6 +6,13 @@
  * Time: 4:34 PM
  */
 
+//if(!isset($_SESSION['user_session'])){
+//    // destroy session
+//    session_destroy();
+//    unset($_SESSION['user_session']);
+//// go home
+//    header('Location: ../view/login.php');
+//}
 ?>
 
 <!-- Navigation -->
@@ -30,7 +37,7 @@
     </a>
     <ul class="dropdown-menu dropdown-user">
         <li class="divider"></li>
-        <li><a href="login.php"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+        <li><a href="../model/logout.php"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
         </li>
     </ul>
     <!-- /.dropdown-user -->

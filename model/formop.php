@@ -31,11 +31,22 @@ class formop
     }
 }
 
+$name = (isset($_POST["name"])) ? strip_tags($_POST["name"]) : "none";
+$productcode = (isset($_POST["productcode"])) ? strip_tags($_POST["productcode"]) : "none";
+$quantity = (isset($_POST["quantity"])) ? strip_tags($_POST["quantity"]) : "none";
+$price = (isset($_POST["price"])) ? strip_tags($_POST["price"]) : "none";
 
-$data = array('name' => $_POST["name"],
-    'productcode' => $_POST["productcode"],
-    'quantity' => $_POST["quantity"],
-    'price' => $_POST["price"]);
+
+// prevent sql injections
+$name =  filter_var($name, FILTER_SANITIZE_STRING);
+$productcode = filter_var($productcode, FILTER_SANITIZE_NUMBER_INT);
+$quantity =  filter_var($quantity, FILTER_SANITIZE_NUMBER_INT);
+$price =  filter_var($price, FILTER_SANITIZE_NUMBER_FLOAT);
+
+$data = array('name' => $name,
+    'productcode' => $productcode,
+    'quantity' => $quantity,
+    'price' => $price);
 
 $handler = new formop;
 

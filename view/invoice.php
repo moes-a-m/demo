@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>invoice</title>
-</head>
-<body>
+<?php include "header.php"?>
 
-</body>
-</html>
+    <div id="output">
+
+    </div>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/script.js"></script>
+
+<?php include "footer.php"?>

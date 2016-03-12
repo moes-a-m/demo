@@ -1,7 +1,7 @@
 <?php include "header.php" ?>
 
     <div id="wrapper">
-
+        <?php include "nav.php" ?>
 
         <div id="page-wrapper">
             <div class="row">

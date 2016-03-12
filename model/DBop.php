@@ -1,6 +1,7 @@
 <?php
 
 require "init.php";
+
 /**
  * Created by PhpStorm.
  * User: Mohammed
@@ -10,6 +11,7 @@ require "init.php";
 class DBop
 {
     protected $pdo = NULL;
+
     /**
      * @param $statment
      * @param $data
@@ -35,8 +37,7 @@ class DBop
         $sqlParent = "SELECt * from users where username = :username and password = :password";
         $stmtParent = $pdo->prepare($sqlParent);
         $stmtParent->execute($userData);
-        if($stmtParent->rowCount() > 0)
-        {
+        if ($stmtParent->rowCount() > 0) {
 //            if(password_verify($upass, $userRow['user_pass']))
 //            {
 //                $_SESSION['user_session'] = $userRow['user_id'];
@@ -47,9 +48,18 @@ class DBop
 //                return false;
 //            }
             return true;
-        }
-        else
+        } else
             return false;
+    }
+
+    public function fetchJson()
+    {
+        $pdo = $this->getPdo();
+        $sqlParent = "SELECt * from customers";
+        $stmtParent = $pdo->prepare($sqlParent);
+        $stmtParent->execute();
+        $result = $stmtParent->fetch(PDO::FETCH_ASSOC);
+        return $result;
     }
 
     /**

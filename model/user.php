@@ -11,26 +11,13 @@ include "DBop.php";
  */
 class User
 {
-    public $userName = "";
-    public $passWord = "";
-    private $bot;
+    protected  $bot;
 
     public function __construct()
     {
         $bot = new DBop();
     }
 
-    /**
-     * @return DBop
-     */
-    public function getBot()
-    {
-        if (!$this->bot) {
-            $this->bot = new DBop();
-        }
-        return $this->bot;
-
-    }
 
     public function printData($data)
     {
@@ -45,21 +32,46 @@ class User
         $bot = $this->getBot();
         $state = $bot->checkLogin($userData);
         if ($state == 1)
-            redirect("../view/blank.php");
+            redirect("../model/invoice.php");
         else
             redirect("../view/login.php?error");
 
     }
+
+    /**
+     * @return DBop
+     */
+    public function getBot()
+    {
+        if (!$this->bot) {
+            $this->bot = new DBop();
+        }
+        return $this->bot;
+
+    }
 }
 
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $handler = new User();
 
-$handler = new User();
+    $username = (isset($_POST['email'])) ? strip_tags($_POST['email']) : "none";
+    $password = (isset($_POST['password'])) ? strip_tags($_POST['password']) : "none";
 
-$data = array('username' => $_POST["email"],
-    'password' => $_POST["password"]);
+// prevent sql injections
+    $username = filter_var($username, FILTER_SANITIZE_EMAIL);
+    $password = filter_var($password, FILTER_SANITIZE_STRING);
 
-//foreach($data as $key=>$d){
-//    printf("<br>".$d);
-//}
+//// prevent xss attack
+//    $pattern = "/[^@\s]*@[^@\s]*\.[^@\s]*/";
+//    $replacement = "[removed]";
+//    $username = preg_replace($pattern, $replacement, $username);
+//
+//    $pattern = '/[^a-zA-Z0-9,. ]/';
+//    $username = preg_replace($pattern, $replacement, $password);
 
-$handler->checkLogin($data);
+    $data = array('username' => $username,
+        'password' => $password);
+
+
+    $handler->checkLogin($data);
+}
