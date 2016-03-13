@@ -15,7 +15,9 @@ class Invoice{
     {
         $bot = $this->getBot();
         $state = $bot->fetchJson();
-        echo json_encode($state);
+        $input = array_values($state);
+        //print_r($input);
+       echo json_encode($input);
     }
 
     public function getBot()
