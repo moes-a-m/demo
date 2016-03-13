@@ -58,8 +58,15 @@ class DBop
         $sqlParent = "SELECt * from customers";
         $stmtParent = $pdo->prepare($sqlParent);
         $stmtParent->execute();
-        $result = $stmtParent->fetch(PDO::FETCH_ASSOC);
-        return $result;
+//        $result = $stmtParent->fetch(PDO::FETCH_ASSOC);
+//        return $result;
+        $result = array();
+
+        while($row = $stmtParent->fetch(PDO::FETCH_ASSOC)) {
+            $result[] = array($row);
+        }
+
+       return $result;
     }
 
     /**

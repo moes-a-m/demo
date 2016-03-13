@@ -13,12 +13,6 @@ class User
 {
     protected  $bot;
 
-    public function __construct()
-    {
-        $bot = new DBop();
-    }
-
-
     public function printData($data)
     {
         printf("<br>The email is %s  the password is %s", $data['username'], $data['password']);
@@ -32,7 +26,7 @@ class User
         $bot = $this->getBot();
         $state = $bot->checkLogin($userData);
         if ($state == 1)
-            redirect("../model/invoice.php");
+            redirect("../view/invoice.php");
         else
             redirect("../view/login.php?error");
 
