@@ -2,10 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ae0dd397-3cb8-4696-8474-951b434649f4" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/DBop.php" afterPath="$PROJECT_DIR$/model/DBop.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/invoice.php" afterPath="$PROJECT_DIR$/model/invoice.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/invoice.php" afterPath="$PROJECT_DIR$/view/invoice.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/script.js" afterPath="$PROJECT_DIR$/js/script.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="demo.iws" />
@@ -305,7 +301,13 @@
       <option name="project" value="LOCAL" />
       <updated>1457853260182</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="fix ajax presentation issue">
+      <created>1457907580972</created>
+      <option name="number" value="00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1457907580972</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -353,7 +355,8 @@
     <MESSAGE value="initial ajax json support" />
     <MESSAGE value="support get json file&#10;issues with jquery ajax &#10;file only get the first value" />
     <MESSAGE value="fix issues with display json file" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix issues with display json file" />
+    <MESSAGE value="fix ajax presentation issue" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix ajax presentation issue" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
